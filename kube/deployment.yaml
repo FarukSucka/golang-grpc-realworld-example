@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: eu.gcr.io/ace-charter-293113/api:1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 3000
+          resources:
+            limits:
+                cpu: 200m
+                memory: 400Mi
+            requests:
+                cpu: 100m
+                memory: 200Mi
+          envFrom:
+            - configMapRef:
+               name: api
+            - secretRef:
+               name: api
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api
+spec:
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      name: http

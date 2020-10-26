@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: api
+data:
+    DB_USER: root
+    DB_HOST: "mysql"
+    DB_PORT: "3306"
+    DB_NAME: app
+    DB_CONNECTION: "root:password@tcp(mysql:3306)/app?multiStatements=true&readTimeout=1s&charset=utf8mb4&parseTime=True&loc=Local"
