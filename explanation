@@ -1,0 +1,20 @@
+# Explain why we use multistage Dockerfiles #
+
+# Multi-stage Dockerfile separates your build into two parts: 
+- The setup of your application code (such as dependencies)
+- and the setup of your application runtime. 
+- Dockerfiles are extremely easy to use out of the box, but when when we are optimizing for security speed and size,
+- multi-stage builds are what is needed.
+- Multi-stage cuts out all of the unnecessary clutter by copying only the things we need which creates smaller images and
+- having a smaller images size speeds up all of our build and deployment steps, and if you’re in Kubernetes,
+- smaller images are one of the quickest ways to speed up performance all around.
+
+# Explanation on why we build both environments and why we package everything as artifact/container #
+
+# There are two main reasons why we build both environments.
+- First both environments are aiming on different endpoints,
+- (faruk-staging.faruksuljic.com and faruk-production.faruksuljic.com), and we need to build them both soo that both are active.
+- Second we build them at the same time to prevent any chance of code difference between the environments.
+- The reason why we keep them in the artifacts is for controled versioning, at any given time we have in incremental order 
+- both environments builded and ready for deployment.
+
