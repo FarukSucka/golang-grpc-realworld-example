@@ -9,7 +9,7 @@ CMD go run server.go
 FROM alpine:latest AS build
 RUN apk update
 RUN apk upgrade
-RUN apk add --update go=1.13.13-r0
+RUN apk add --update go=1.13.15-r0
 RUN apk add --update upx
 WORKDIR /go/src/app
 COPY . .
