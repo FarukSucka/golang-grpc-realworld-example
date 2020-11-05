@@ -90,7 +90,6 @@ node (label: 'master'){
     stage ('Deploy service'){
         try {
             retry (2) {
-                sh "gcloud container clusters get-credentials faruksuljic --zone=europe-west1-b"
                 sh "KUBECONFIG=faruk.config kubectl set image deployment/$SERVICE $SERVICE=$GCR/$PROJECT_ID/$CONTAINER:$BUILD_NUMBER"
             /*slackSend message: "${MSG_PREFIX} - Image Deployed",
                 color: "good",
