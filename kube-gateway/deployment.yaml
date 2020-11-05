@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
+  name: api-gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api
+      app: api-gateway
   template:
     metadata:
       labels:
-        app: api
+        app: api-gateway
     spec:
       containers:
-        - name: api
-          image: eu.gcr.io/ace-charter-293113/api:1
+        - name: api-gateway
+          image: eu.gcr.io/ace-charter-293113/api-gateway:0
           imagePullPolicy: Always
           ports:
-          - containerPort: 50051
+          - containerPort: 3000
           resources:
             limits:
                 cpu: 200m
@@ -25,21 +25,16 @@ spec:
             requests:
                 cpu: 100m
                 memory: 200Mi
-          envFrom:
-            - configMapRef:
-               name: api
-            - secretRef:
-               name: api
----
 
+---
 kind: Service
 apiVersion: v1
 metadata:
-  name: api
+  name: api-gateway
 spec:
   selector:
-    app: api
+    app: api-gateway
   ports:
   - name: http
     port: 80
-    targetPort: 50051
+    targetPort: 3000
