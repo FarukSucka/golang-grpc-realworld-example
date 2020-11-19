@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	echoEndpoint = flag.String("endpoint", "localhost:50051", "endpoint of YourService")
+	echoEndpoint = flag.String("endpoint", "localhost:50051", "faruk-staging.faruksuljic.com")
 )
 
 func run() error {
