@@ -25,6 +25,11 @@ spec:
             requests:
                 cpu: 100m
                 memory: 200Mi
+          envFrom:
+            - configMapRef:
+               name: api
+            - secretRef:
+               name: api
 
 ---
 kind: Service
@@ -35,6 +40,6 @@ spec:
   selector:
     app: api-gateway
   ports:
-  - name: http
+  - protocol: TCP
     port: 80
     targetPort: 3000
